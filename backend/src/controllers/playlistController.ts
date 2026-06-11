@@ -1,12 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 import * as playlistService from '../services/playlistService.js';
 import { AppError } from '../utils/errors.js';
-import type { PlaylistItemRow } from '../repositories/playlistRepository.js';
 
 function getUserId(req: Request): string {
   const id = req.user?.userId;
   if (!id) throw new AppError('UNAUTHORIZED', 'Authentication required', 401);
   return id;
+}
+
+function paramStr(v: string | string[] | undefined): string {
+  if (Array.isArray(v)) return v[0] ?? '';
+  return v ?? '';
 }
 
 export async function getPlaylists(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -30,7 +34,7 @@ export async function createPlaylist(req: Request, res: Response, next: NextFunc
 export async function updatePlaylist(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId = getUserId(req);
-    const { id } = req.params;
+    const id = paramStr(req.params['id']);
     const { name } = req.body as { name: string };
     if (!id || !name) { res.status(400).json({ error: { code: 'MISSING_FIELDS', message: 'id ve name gerekli', retryable: false } }); return; }
     const playlist = await playlistService.updatePlaylist(userId, id, name);
@@ -41,7 +45,7 @@ export async function updatePlaylist(req: Request, res: Response, next: NextFunc
 export async function deletePlaylist(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId = getUserId(req);
-    const { id } = req.params;
+    const id = paramStr(req.params['id']);
     if (!id) { next(new AppError('MISSING_ID', 'id gerekli', 400)); return; }
     await playlistService.deletePlaylist(userId, id);
     res.status(200).json({ message: 'Playlist silindi' });
@@ -51,7 +55,7 @@ export async function deletePlaylist(req: Request, res: Response, next: NextFunc
 export async function getItems(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId = getUserId(req);
-    const { id } = req.params;
+    const id = paramStr(req.params['id']);
     if (!id) { next(new AppError('MISSING_ID', 'id gerekli', 400)); return; }
     const items = await playlistService.getPlaylistItems(userId, id);
     res.status(200).json({ items });
@@ -61,7 +65,7 @@ export async function getItems(req: Request, res: Response, next: NextFunction):
 export async function addItem(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId = getUserId(req);
-    const { id } = req.params;
+    const id = paramStr(req.params['id']);
     if (!id) { next(new AppError('MISSING_ID', 'id gerekli', 400)); return; }
     const { videoId, title, channelName, durationSec, thumbnailUrl } = req.body as {
       videoId: string; title: string; channelName: string; durationSec: number; thumbnailUrl?: string | null;
@@ -78,7 +82,8 @@ export async function addItem(req: Request, res: Response, next: NextFunction): 
 export async function removeItem(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId = getUserId(req);
-    const { id, itemId } = req.params;
+    const id = paramStr(req.params['id']);
+    const itemId = paramStr(req.params['itemId']);
     if (!id || !itemId) { next(new AppError('MISSING_ID', 'id ve itemId gerekli', 400)); return; }
     await playlistService.removeFromPlaylist(userId, id, itemId);
     res.status(200).json({ message: 'İçerik kaldırıldı' });
@@ -88,7 +93,7 @@ export async function removeItem(req: Request, res: Response, next: NextFunction
 export async function reorderItems(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const userId = getUserId(req);
-    const { id } = req.params;
+    const id = paramStr(req.params['id']);
     const { orderedItemIds } = req.body as { orderedItemIds: string[] };
     if (!id) { next(new AppError('MISSING_ID', 'id gerekli', 400)); return; }
     if (!Array.isArray(orderedItemIds)) { res.status(400).json({ error: { code: 'INVALID_BODY', message: 'orderedItemIds array gerekli', retryable: false } }); return; }
