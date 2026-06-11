@@ -1,0 +1,38 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      target: production
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # Development volume: mount source + node_modules for live reload via ts-node-dev
+    volumes:
+      - ./backend/src:/app/src:ro
+      - ./backend/tsconfig.json:/app/tsconfig.json:ro
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-myt_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-myt_password}
+      POSTGRES_DB: ${POSTGRES_DB:-myt_clone}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-myt_user} -d ${POSTGRES_DB:-myt_clone}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

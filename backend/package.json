@@ -1,0 +1,44 @@
+{
+  "name": "@myt-clone/backend",
+  "version": "1.0.0",
+  "description": "MYT Müzik Klonu — Node.js + Express backend",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only --esm src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "migrate": "ts-node-dev --transpile-only --esm src/db/migrate.ts"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "pg": "^8.13.0",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^16.4.5",
+    "p-queue": "^8.0.1",
+    "cors": "^2.8.5",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "ts-node-dev": "^2.0.0",
+    "@types/express": "^5.0.0",
+    "@types/pg": "^8.11.10",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^22.0.0",
+    "jest": "^29.7.0",
+    "@jest/globals": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "supertest": "^7.0.0",
+    "@types/supertest": "^6.0.2",
+    "fast-check": "^3.22.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
