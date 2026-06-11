@@ -35,8 +35,7 @@
       "expo-router",
       "expo-video",
       "expo-file-system",
-      "expo-secure-store",
-      "react-native-track-player"
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
