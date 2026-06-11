@@ -10,20 +10,20 @@
     "build:android": "eas build --platform android"
   },
   "dependencies": {
-    "expo": "~52.0.0",
-    "expo-router": "~4.0.0",
-    "react-native": "0.76.3",
-    "react": "^18.3.0",
-    "react-native-track-player": "^4.1.0",
-    "expo-video": "^2.0.0",
-    "expo-file-system": "~18.0.0",
-    "expo-secure-store": "~14.0.0",
-    "zustand": "^5.0.0",
-    "axios": "^1.7.0",
     "@gorhom/bottom-sheet": "^5.0.0",
-    "react-native-reanimated": "~3.16.0",
+    "@react-native-community/netinfo": "11.4.1",
+    "axios": "^1.7.0",
+    "expo": "~52.0.0",
+    "expo-file-system": "~18.0.0",
+    "expo-router": "~4.0.0",
+    "expo-secure-store": "~14.0.0",
+    "expo-video": "~2.0.6",
+    "react": "^18.3.0",
+    "react-native": "0.76.9",
     "react-native-gesture-handler": "~2.20.0",
-    "@react-native-community/netinfo": "^11.0.0"
+    "react-native-reanimated": "~3.16.0",
+    "react-native-track-player": "^4.1.0",
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
