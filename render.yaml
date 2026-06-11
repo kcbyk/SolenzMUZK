@@ -2,6 +2,7 @@ services:
   - type: web
     name: myt-clone-backend
     runtime: docker
+    branch: main
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
     plan: free
