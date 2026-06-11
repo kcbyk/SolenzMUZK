@@ -1,10 +1,11 @@
 services:
   - type: web
     name: myt-clone-backend
-    runtime: docker
+    runtime: node
     branch: main
     rootDir: backend
-    dockerfilePath: Dockerfile
+    buildCommand: npm install && pip3 install yt-dlp && npm run build
+    startCommand: npm start
     plan: free
     envVars:
       - key: NODE_ENV
