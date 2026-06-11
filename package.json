@@ -1,18 +1,8 @@
 {
   "name": "myt-clone",
   "version": "1.0.0",
-  "description": "MYT Müzik Klonu — React Native + Expo mobil istemci ve Node.js + Express backend",
+  "description": "MYT Muzik Klonu monorepo — see backend/ and mobile/ for each workspace",
   "private": true,
-  "workspaces": [
-    "mobile",
-    "backend"
-  ],
-  "scripts": {
-    "mobile": "npm run start --workspace=mobile",
-    "backend": "npm run dev --workspace=backend",
-    "test": "npm run test --workspaces --if-present",
-    "build": "npm run build --workspaces --if-present"
-  },
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=10.0.0"
