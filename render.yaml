@@ -3,8 +3,8 @@ services:
     name: myt-clone-backend
     runtime: docker
     branch: main
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
+    rootDir: backend
+    dockerfilePath: Dockerfile
     plan: free
     envVars:
       - key: NODE_ENV
