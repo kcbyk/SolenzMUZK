@@ -25,25 +25,29 @@
         "WAKE_LOCK",
         "RECEIVE_BOOT_COMPLETED",
         "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
+        "WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.INTERNET"
       ]
     },
     "plugins": [
       "expo-router",
       "expo-video",
       "expo-file-system",
-      "expo-secure-store",
-      [
-        "react-native-track-player",
-        {
-          "android": {
-            "appKilledPlaybackBehavior": "StopPlaybackAndRemoveNotification"
-          }
-        }
-      ]
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "eea5f5df-3e0d-4dbd-b1eb-fb2465c1270a"
+      }
+    },
+    "owner": "senol12"
   }
 }
